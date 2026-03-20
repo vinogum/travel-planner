@@ -1,4 +1,7 @@
-.PHONY: run migrate env setup lint test shell superuser
+.PHONY: run migrate env setup lint test shell superuser \
+       up down build logs restart
+
+# ── Local ─────────────────────────────────────────────
 
 run:
 	uv run python manage.py runserver
@@ -26,3 +29,20 @@ shell:
 
 superuser:
 	uv run python manage.py createsuperuser
+
+# ── Docker ────────────────────────────────────────────
+
+up:
+	docker compose up -d
+
+down:
+	docker compose down
+
+build:
+	docker compose up -d --build
+
+logs:
+	docker compose logs -f
+
+restart:
+	docker compose restart
